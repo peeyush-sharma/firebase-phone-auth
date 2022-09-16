@@ -1,6 +1,8 @@
 {
-  "name": "js",
-  "version": "0.0.0",
+  "name": "js-phone-auth-test",
+  "version": "2.0.1",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "firebase": "^9.10.0"
+  }
 }
