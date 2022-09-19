@@ -16,6 +16,7 @@ import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 
 // Document elements
 // const phoneButton = document.getElementById('phone-button');
@@ -36,25 +37,10 @@ async function main() {
   const auth = firebase.auth();
   // To apply the default browser preference instead of explicitly setting it.
   auth.useDeviceLanguage();
-  auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
+  // auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
 
   // FirebaseUI config
   // const uiConfig = {
-  //   callbacks: {
-  //     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-  //       // User successfully signed in.
-  //       // Return type determines whether we continue the redirect automatically
-  //       // or whether we leave that to developer to handle.
-  //       console.log('signInSuccessWithAuthResult');
-  //       return true;
-  //     },
-  //     uiShown: function () {
-  //       console.log('FirebaseUI was shown');
-  //       // The widget is rendered.
-  //       document.getElementById('loader').style.display = 'none'; // Hide the loader.
-  //     },
-  //   },
-  //   // credentialHelper: firebaseui.auth.CredentialHelper.NONE,
   //   signInOptions: [
   //     {
   //       provider: PhoneAuthProvider.PROVIDER_ID,
@@ -68,27 +54,52 @@ async function main() {
   //       loginHint: '+911234567890',
   //     },
   //   ],
-  //   // signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  //   // signInSuccessUrl: '<url-to-redirect-to-on-success>',
-  //   // tosUrl: '<your-tos-url>', // Terms of service url.
-  //   // privacyPolicyUrl: '<your-privacy-policy-url>', // Privacy policy url.
+  //   signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+  //   signInSuccessUrl: '<url-to-redirect-to-on-success>',
+  //   tosUrl: '<your-tos-url>', // Terms of service url.
+  //   privacyPolicyUrl: '<your-privacy-policy-url>', // Privacy policy url.
   // };
 
   // FirebaseUI config
   const uiConfig = {
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     signInOptions: [
-      // Email / Password Provider.
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+      {
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        recaptchaParameters: {
+          type: 'image', // 'audio'
+          size: 'normal', // 'invisible' or 'compact'
+          badge: 'bottomleft', //' bottomright' or 'inline' applies to invisible.
+        },
+      },
+      {
+        provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        recaptchaParameters: {
+          type: 'image', // 'audio'
+          size: 'normal', // 'invisible' or 'compact'
+          badge: 'bottomleft', //' bottomright' or 'inline' applies to invisible.
+        },
+        defaultCountry: 'IN', // Set default country to the India (+91).
+        defaultNationalNumber: '1234567890',
+        loginHint: '+911234567890',
+      },
     ],
     callbacks: {
       signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-        // Handle sign-in.
-        // Return false to avoid redirect.
-        return false;
+        // Handle sign-in. // Return false to avoid redirect.
+        console.log('signInSuccessWithAuthResult');
+        return true;
+      },
+      uiShown: function () {
+        console.log('FirebaseUI was shown');
+        // The widget is rendered.
+        document.getElementById('loader').style.display = 'none'; // Hide the loader.
       },
     },
+    signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    tosUrl: '<your-tos-url>', // Terms of service url.
+    privacyPolicyUrl: '<your-privacy-policy-url>', // Privacy policy url.
   };
 
   // Initialize the FirebaseUI Widget using Firebase.
