@@ -1,21 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- Add two inputs for "phoneNumber" and "code" -->
-    <input type="tel" id="phoneNumber" />
-    <input type="text" id="code" />
+<head>
+  <meta charset="utf-8" />
+  <title>VetValley</title>
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="https://cdn.firebase.com/libs/firebaseui/4.0.0/firebaseui.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 
-    <!-- Add two buttons to submit the inputs -->
-    <button id="phone-button">SIGN IN WITH PHONE</button>
-    <button id="code-button">ENTER CODE</button>
+<body>
+  <div id="app">
+    <img
+      src="https://firebasestorage.googleapis.com/v0/b/fir-images-a61c9.appspot.com/o/codelab.png?alt=media&token=f45f808c-ce40-4b34-944c-8d8fac00e13d"
+    />
 
-    <!-- Add a container for reCaptcha -->
-    <div id="recaptcha-container"></div>
-  </body>
-</html>
+    <section id="header-container">
+      <h1>VetValley Phone Auth Test</h1>
+      <!-- <p><i class="material-icons">calendar_today</i> October 30</p>
+    <p><i class="material-icons">location_city</i> San Francisco</p> -->
+      <button id="start-button">Test</button>
+    </section>
+
+    <hr />
+
+    <section id="firebaseui-auth-container"></section>
+
+    <section id="temp">
+      <!-- Add two inputs for "phoneNumber" and "code" -->
+      <!-- <input type="tel" id="phoneNumber" />
+      <input type="text" id="code" /> -->
+
+      <!-- Add two buttons to submit the inputs -->
+      <!-- <button id="phone-button">SIGN IN WITH PHONE</button>
+      <button id="code-button">ENTER CODE</button> -->
+
+      <!-- Add a container for reCaptcha -->
+      <!-- <div id="recaptcha-container"></div>
+      <div id="firebaseui-auth-container"></div> -->
+      <div id="loader">Loading...</div>
+    </section>
+  </div>
+</body>

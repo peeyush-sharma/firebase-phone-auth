@@ -3,6 +3,7 @@
   "version": "2.0.1",
   "private": true,
   "dependencies": {
-    "firebase": "^9.10.0"
+    "firebase": "9.10.0",
+    "firebaseui": "^6.0.1"
   }
 }
