@@ -22,31 +22,29 @@
     <img
       src="https://firebasestorage.googleapis.com/v0/b/fir-images-a61c9.appspot.com/o/codelab.png?alt=media&token=f45f808c-ce40-4b34-944c-8d8fac00e13d"
     />
-
     <section id="header-container">
-      <h1>VetValley Phone Auth Test</h1>
-      <!-- <p><i class="material-icons">calendar_today</i> October 30</p>
-    <p><i class="material-icons">location_city</i> San Francisco</p> -->
-      <button id="start-button">Test</button>
+      <h1>Welcome to VetValley</h1>
     </section>
-
+    <hr />
+    <section id="auth-container">
+      <button id="auth-button"></button>
+      <section id="firebaseui-auth-container"></section>
+    </section>
     <hr />
 
-    <section id="firebaseui-auth-container"></section>
+    <!-- <div id="loader">Loading...</div> -->
 
-    <section id="temp">
-      <!-- Add two inputs for "phoneNumber" and "code" -->
-      <!-- <input type="tel" id="phoneNumber" />
-      <input type="text" id="code" /> -->
-
-      <!-- Add two buttons to submit the inputs -->
-      <!-- <button id="phone-button">SIGN IN WITH PHONE</button>
-      <button id="code-button">ENTER CODE</button> -->
-
-      <!-- Add a container for reCaptcha -->
-      <!-- <div id="recaptcha-container"></div>
-      <div id="firebaseui-auth-container"></div> -->
-      <div id="loader">Loading...</div>
+    <section id="calendly-container">
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/peeyush-sharma-254/30min"
+        style="min-width: 320px; height: 630px"
+      ></div>
+      <script
+        type="text/javascript"
+        src="https://assets.calendly.com/assets/external/widget.js"
+        async
+      ></script>
     </section>
   </div>
 </body>

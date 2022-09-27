@@ -1,30 +1,18 @@
 // Import stylesheets
 import './style.css';
 
-// // Import the functions you need from the SDKs you need
-// import { initializeApp } from 'firebase/app';
-// import {
-//   signOut,
-//   getAuth,
-//   PhoneAuthProvider,
-//   EmailAuthProvider,
-//   onAuthStateChanged,
-// } from 'firebase/auth';
-// import firebaseui from 'firebaseui';
-
+// Firebase Imports
 import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
-import * as firebaseui from 'firebaseui';
+import firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 
 // Document elements
-// const phoneButton = document.getElementById('phone-button');
-// const codeButton = document.getElementById('code-button');
-const startTestButton = document.getElementById('start-button');
+const authStartButton = document.getElementById('auth-button');
 
 async function main() {
-  // Your web app's Firebase configuration
+  // Your Firebase configuration
   const firebaseConfig = {
     apiKey: 'AIzaSyAHAUSF2UXi2PDuSO8RfJV-6aU9tXNM9ls',
     authDomain: 'fir-web-codelab-53937.firebaseapp.com',
@@ -37,28 +25,8 @@ async function main() {
   const auth = firebase.auth();
   // To apply the default browser preference instead of explicitly setting it.
   auth.useDeviceLanguage();
-  // auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
 
-  // FirebaseUI config
-  // const uiConfig = {
-  //   signInOptions: [
-  //     {
-  //       provider: PhoneAuthProvider.PROVIDER_ID,
-  //       recaptchaParameters: {
-  //         type: 'image', // 'audio'
-  //         size: 'normal', // 'invisible' or 'compact'
-  //         badge: 'bottomleft', //' bottomright' or 'inline' applies to invisible.
-  //       },
-  //       defaultCountry: 'IN', // Set default country to the India (+91).
-  //       defaultNationalNumber: '1234567890',
-  //       loginHint: '+911234567890',
-  //     },
-  //   ],
-  //   signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  //   signInSuccessUrl: '<url-to-redirect-to-on-success>',
-  //   tosUrl: '<your-tos-url>', // Terms of service url.
-  //   privacyPolicyUrl: '<your-privacy-policy-url>', // Privacy policy url.
-  // };
+  // auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
 
   // FirebaseUI config
   const uiConfig = {
@@ -93,7 +61,7 @@ async function main() {
       uiShown: function () {
         console.log('FirebaseUI was shown');
         // The widget is rendered.
-        document.getElementById('loader').style.display = 'none'; // Hide the loader.
+        // document.getElementById('loader').style.display = 'none'; // Hide the loader.
       },
     },
     signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
@@ -105,32 +73,28 @@ async function main() {
   // Initialize the FirebaseUI Widget using Firebase.
   const ui =
     firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
-  startTestButton.addEventListener('click', () => {
+  authStartButton.addEventListener('click', () => {
     if (auth.currentUser) {
       // User is signed in; allows user to sign out
       signOut(auth)
         .then(() => {
-          console.log('Sign-Out Successfull');
+          console.log('Sign-Out Success');
         })
         .catch((error) => {
-          console.log('Sign-Out Errored out!');
+          console.log('Sign-Out Error!');
           console.log(error);
         });
     } else {
-      // No user is signed in; allows user to sign in
-      console.log('Starting FirebaseUI');
+      // No user is signed in; so allow user to sign in; Start FirebaseUI
       ui.start('#firebaseui-auth-container', uiConfig);
-      console.log(ui);
     }
   });
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      startTestButton.textContent = 'LOGOUT';
-      console.log('USER LOGGED IN');
+      authStartButton.textContent = 'LOGOUT';
     } else {
-      startTestButton.textContent = 'TEST';
-      console.log('USER NOT LOGGED IN');
+      authStartButton.textContent = 'LOGIN';
     }
   });
 
