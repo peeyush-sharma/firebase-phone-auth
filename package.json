@@ -5,5 +5,24 @@
   "dependencies": {
     "firebase": "9.10.0",
     "firebaseui": "^6.0.1"
-  }
+  },
+  "description": "[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/js-uspbwy)",
+  "main": "index.js",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peeyush-sharma/firebase-phone-auth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peeyush-sharma/firebase-phone-auth/issues"
+  },
+  "homepage": "https://github.com/peeyush-sharma/firebase-phone-auth#readme"
 }
