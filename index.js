@@ -10,6 +10,7 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 
 // Document elements
 const authStartButton = document.getElementById('auth-button');
+const calendlyWidget = document.getElementById('calendly-widget');
 
 async function main() {
   // Your Firebase configuration
@@ -26,7 +27,7 @@ async function main() {
   // To apply the default browser preference instead of explicitly setting it.
   auth.useDeviceLanguage();
 
-  // auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
+  auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
 
   // FirebaseUI config
   const uiConfig = {
@@ -56,7 +57,8 @@ async function main() {
       signInSuccessWithAuthResult: function (authResult, redirectUrl) {
         // Handle sign-in. // Return false to avoid redirect.
         console.log('signInSuccessWithAuthResult');
-        return true;
+        calendlyWidget.style.display = 'block';
+        return false;
       },
       uiShown: function () {
         console.log('FirebaseUI was shown');
@@ -65,7 +67,7 @@ async function main() {
       },
     },
     signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    // signInSuccessUrl: '<url-to-redirect-to-on-success>',
     tosUrl: '<your-tos-url>', // Terms of service url.
     privacyPolicyUrl: '<your-privacy-policy-url>', // Privacy policy url.
   };
@@ -95,6 +97,7 @@ async function main() {
       authStartButton.textContent = 'LOGOUT';
     } else {
       authStartButton.textContent = 'LOGIN';
+      calendlyWidget.style.display = 'none';
     }
   });
 
@@ -169,3 +172,8 @@ async function main() {
   // This function runs everytime the auth state changes. Use to verify if the user is logged in
 }
 main();
+
+document.addEventListener('DOMContentLoaded', function () {
+  calendlyWidget.style.display = 'none';
+  authStartButton.textContent = 'LOGIN';
+});
