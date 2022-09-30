@@ -11,6 +11,7 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 // Document elements
 const authStartButton = document.getElementById('auth-button');
 const calendlyWidget = document.getElementById('calendly-widget');
+const kycForm = document.getElementById('kyc-form');
 
 async function main() {
   // Your Firebase configuration
@@ -57,6 +58,7 @@ async function main() {
       signInSuccessWithAuthResult: function (authResult, redirectUrl) {
         // Handle sign-in. // Return false to avoid redirect.
         console.log('signInSuccessWithAuthResult');
+        kycForm.style.display = 'block';
         calendlyWidget.style.display = 'block';
         return false;
       },
@@ -98,6 +100,7 @@ async function main() {
     } else {
       authStartButton.textContent = 'LOGIN';
       calendlyWidget.style.display = 'none';
+      kycForm.style.display = 'none';
     }
   });
 
@@ -174,6 +177,7 @@ async function main() {
 main();
 
 document.addEventListener('DOMContentLoaded', function () {
+  kycForm.style.display = 'none';
   calendlyWidget.style.display = 'none';
   authStartButton.textContent = 'LOGIN';
 });

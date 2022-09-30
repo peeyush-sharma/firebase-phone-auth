@@ -7,36 +7,99 @@
     href="https://cdn.firebase.com/libs/firebaseui/4.0.0/firebaseui.css"
   />
   <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,700&display=swap"
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,700|Material+Icons&display=swap"
     rel="stylesheet"
   />
-  <link
+  <!-- <link
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet"
-  />
+  /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
-  <!-- <div id="app"> -->
   <img
     src="https://firebasestorage.googleapis.com/v0/b/fir-images-a61c9.appspot.com/o/codelab.png?alt=media&token=f45f808c-ce40-4b34-944c-8d8fac00e13d"
   />
   <section id="header-container">
     <h1>Welcome to VetValley</h1>
   </section>
-  <hr />
+  <!-- <hr />
   <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_KMuEy2tpLtoFdz" async> </script> </form>
-  <hr />
-  
+  <hr /> -->
+
   <section id="auth-container">
     <button id="auth-button"></button>
     <section id="firebaseui-auth-container"></section>
   </section>
-  <!-- <div id="loader">Loading...</div> -->
+
+  <section id="kyc-container">
+    <form id="kyc-form" style="display: none">
+      <div class="title">Customer Information</div>
+
+      <!-- Name field -->
+      <div>
+        <label for="username">Name</label>
+        <i class="material-icons" aria-hidden="true"> account_circle </i>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="PetOwners Name"
+        />
+        <i class="fas fa-exclamation-circle failure-icon"></i>
+        <i class="far fa-check-circle success-icon"></i>
+
+        <div class="error"></div>
+      </div>
+
+      <!-- Email Field -->
+      <div>
+        <label for="email">Email</label>
+        <i class="material-icons" aria-hidden="true"> email </i>
+        <input type="email" name="email" id="email" placeholder="abc@xyz.com" />
+        <i class="fas fa-exclamation-circle failure-icon"></i>
+        <i class="far fa-check-circle success-icon"></i>
+
+        <div class="error"></div>
+      </div>
+
+      <!-- Address Field -->
+      <div>
+        <label for="address">Address</label>
+        <i class="material-icons" aria-hidden="true"> home </i>
+        <input type="text" name="address" id="address" placeholder="Address" />
+        <div class="error"></div>
+      </div>
+
+      <!-- Pet Name -->
+      <div>
+        <label for="petname">Pet's Name</label>
+        <i class="material-icons" aria-hidden="true"> pets </i>
+        <input type="text" name="petname" id="petname" placeholder="Petname" />
+        <div class="error"></div>
+      </div>
+
+      <!-- Summary of Complaints -->
+      <div>
+        <label for="summary">Complaint Summary</label>
+        <i class="material-icons" aria-hidden="true"> medication </i>
+        <input
+          type="text"
+          name="summary"
+          id="summary"
+          placeholder="Lack of Appetite, fever etc."
+        />
+        <div class="error"></div>
+      </div>
+
+      <button id="btn" type="submit">Submit</button>
+    </form>
+  </section>
 
   <section id="calendly-container">
-    <div id="calendly-widget"
+    <div
+      id="calendly-widget"
       class="calendly-inline-widget"
       data-url="https://calendly.com/peeyush-sharma-254/30min"
       style="min-width: 320px; height: 630px; display: none"
@@ -47,5 +110,4 @@
       async
     ></script>
   </section>
-  <!-- </div> -->
 </body>
