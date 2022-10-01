@@ -7,11 +7,18 @@ import firebase from 'firebase/compat/app';
 import firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, addDoc, collection } from 'firebase/firestore';
 
 // Document elements
 const authStartButton = document.getElementById('auth-button');
 const calendlyWidget = document.getElementById('calendly-widget');
 const kycForm = document.getElementById('kyc-form');
+const userName = document.getElementById('username');
+const email = document.getElementById('email');
+const address = document.getElementById('address');
+const petname = document.getElementById('petname');
+const complaint = document.getElementById('summary');
+const formSubmitButton = document.getElementById('form-submit-btn');
 
 async function main() {
   // Your Firebase configuration
@@ -29,6 +36,9 @@ async function main() {
   auth.useDeviceLanguage();
 
   auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
+
+  // Firebase DB setup
+  const db = getFirestore();
 
   // FirebaseUI config
   const uiConfig = {
@@ -56,16 +66,15 @@ async function main() {
     ],
     callbacks: {
       signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-        // Handle sign-in. // Return false to avoid redirect.
+        // Handle sign-in.
         console.log('signInSuccessWithAuthResult');
         kycForm.style.display = 'block';
-        calendlyWidget.style.display = 'block';
-        return false;
+        // calendlyWidget.style.display = 'block';
+        return false; // Return false to avoid redirect.
       },
       uiShown: function () {
-        console.log('FirebaseUI was shown');
         // The widget is rendered.
-        // document.getElementById('loader').style.display = 'none'; // Hide the loader.
+        console.log('FirebaseUI was shown');
       },
     },
     signInFlow: 'popup', // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
@@ -100,7 +109,7 @@ async function main() {
     } else {
       authStartButton.textContent = 'LOGIN';
       calendlyWidget.style.display = 'none';
-      kycForm.style.display = 'none';
+      // kycForm.style.display = 'none';
     }
   });
 
@@ -172,12 +181,35 @@ async function main() {
   //     });
   // }
 
-  // This function runs everytime the auth state changes. Use to verify if the user is logged in
+  // Listen to the form submission
+  formSubmitButton.addEventListener('click', async (e) => {
+    console.log('Pressed Submit Button');
+    console.log(db);
+    e.preventDefault(); // Prevent the default form redirect
+    // Write a new message to the database collection "customer-book"
+
+    let username = auth.currentUser.displayName;
+    if (!username && username.length == 0) {
+      username = userName;
+      console.log('username is null');
+    }
+
+    addDoc(collection(db, 'customer-book'), {
+      userId: auth.currentUser.uid,
+      name: username,
+      email: email.value,
+      address: address.value,
+      petname: petname.value,
+      complaint: complaint.value,
+      timestamp: Date.now(),
+    });
+    return false; // Return false to avoid redirect
+  });
 }
 main();
 
-document.addEventListener('DOMContentLoaded', function () {
-  kycForm.style.display = 'none';
-  calendlyWidget.style.display = 'none';
-  authStartButton.textContent = 'LOGIN';
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   // kycForm.style.display = 'none';
+//   calendlyWidget.style.display = 'none';
+//   authStartButton.textContent = 'LOGIN';
+// });

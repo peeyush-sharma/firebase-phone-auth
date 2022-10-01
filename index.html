@@ -34,9 +34,9 @@
   </section>
 
   <section id="kyc-container">
-    <form id="kyc-form" style="display: none">
+    <!-- <form id="kyc-form" style="display: none"> -->
+    <form id="kyc-form">
       <div class="title">Customer Information</div>
-
       <!-- Name field -->
       <div>
         <label for="username">Name</label>
@@ -47,8 +47,8 @@
           id="username"
           placeholder="PetOwners Name"
         />
-        <i class="fas fa-exclamation-circle failure-icon"></i>
-        <i class="far fa-check-circle success-icon"></i>
+        <!-- <i class="fas fa-exclamation-circle failure-icon"></i>
+        <i class="far fa-check-circle success-icon"></i> -->
 
         <div class="error"></div>
       </div>
@@ -58,8 +58,8 @@
         <label for="email">Email</label>
         <i class="material-icons" aria-hidden="true"> email </i>
         <input type="email" name="email" id="email" placeholder="abc@xyz.com" />
-        <i class="fas fa-exclamation-circle failure-icon"></i>
-        <i class="far fa-check-circle success-icon"></i>
+        <!-- <i class="fas fa-exclamation-circle failure-icon"></i>
+        <i class="far fa-check-circle success-icon"></i> -->
 
         <div class="error"></div>
       </div>
@@ -93,7 +93,10 @@
         <div class="error"></div>
       </div>
 
-      <button id="btn" type="submit">Submit</button>
+      <!-- Submit Button -->
+      <button id="form-submit-btn" type="submit">
+        <i class="material-icons">send</i> <span>Submit</span>
+      </button>
     </form>
   </section>
 
