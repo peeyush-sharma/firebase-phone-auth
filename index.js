@@ -19,6 +19,8 @@ const address = document.getElementById('address');
 const petname = document.getElementById('petname');
 const complaint = document.getElementById('summary');
 const formSubmitButton = document.getElementById('form-submit-btn');
+const meetNowButton = document.getElementById('meet-now-btn');
+const scheduleMeetButton = document.getElementById('meet-later-bt');
 
 async function main() {
   // Your Firebase configuration
@@ -109,7 +111,7 @@ async function main() {
     } else {
       authStartButton.textContent = 'LOGIN';
       calendlyWidget.style.display = 'none';
-      // kycForm.style.display = 'none';
+      kycForm.style.display = 'none';
     }
   });
 
@@ -205,6 +207,16 @@ async function main() {
     });
     return false; // Return false to avoid redirect
   });
+
+  meetNowButton.addEventListener('click', async (e) => {
+    // pul zoom create and start meeting link here
+    // put razorpay offline button here
+  });
+
+  scheduleMeetButton.addEventListener('click', async (e) => {
+    // pul zoom create and start meeting link here
+  });
+
 }
 main();
 

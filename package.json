@@ -6,7 +6,7 @@
     "firebase": "9.10.0",
     "firebaseui": "^6.0.1"
   },
-  "description": "[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/js-uspbwy)",
+  "description": "[Edited using StackBlitz ⚡️]",
   "main": "index.js",
   "devDependencies": {
     "http-server": "^14.1.1"

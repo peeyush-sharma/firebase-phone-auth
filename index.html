@@ -10,10 +10,6 @@
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:300,400,700|Material+Icons&display=swap"
     rel="stylesheet"
   />
-  <!-- <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet"
-  /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
@@ -34,8 +30,8 @@
   </section>
 
   <section id="kyc-container">
-    <!-- <form id="kyc-form" style="display: none"> -->
-    <form id="kyc-form">
+    <form id="kyc-form" style="display: none">
+      <!-- <form id="kyc-form"> -->
       <div class="title">Customer Information</div>
       <!-- Name field -->
       <div>
@@ -98,6 +94,44 @@
         <i class="material-icons">send</i> <span>Submit</span>
       </button>
     </form>
+  </section>
+
+  <section id="rate-table-container">
+    <!-- <table id="rate-table" style="display: none"> -->
+    <table id="rate-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Consultation</th>
+          <th>Price INR (Incl. Tax)</th>
+          <th>Includes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Online</td>
+          <td>299</td>
+          <td>Upto 30 min video consultation</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>In-Person</td>
+          <td>399</td>
+          <td>Basic Checkup</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="book-appointment-container">
+    <button id="meet-now-btn" type="submit">
+      <i class="material-icons">video_chat</i> <span>Meet Now</span>
+    </button>
+    <button id="meet-later-btn" type="submit">
+      <i class="material-icons">calendar_month</i>
+      <span>Schedule Appointment</span>
+    </button>
   </section>
 
   <section id="calendly-container">

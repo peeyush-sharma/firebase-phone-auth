@@ -148,10 +148,48 @@ p {
   margin-bottom: 0px;
 }
 
-/* #guestbook > p {
-  font-weight: lighter;
-  font-size: 14px;
-} */
+table {
+  border: 1px solid;
+  /* box-sizing: border-box; */
+  border-collapse: collapse;
+  /* margin: 4em auto; */
+  /* overflow: hidden; */
+  min-width: 23em;
+  width: 70%;
+  max-width: 56em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em #000;
+}
+
+td {
+  border: 1px solid;
+}
+
+th {
+  text-align: center;
+  border: 1px solid;
+}
+
+thead {
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* cursor: pointer; */
+}
+
+tbody {
+  text-align: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  color: #000;
+}
+
+tr {
+  text-align: center;
+  /* display: block; */
+  overflow: hidden;
+  width: 100%;
+}
 
 input {
   border: none;
