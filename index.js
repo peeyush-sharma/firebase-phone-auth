@@ -21,6 +21,8 @@ const complaint = document.getElementById('summary');
 const formSubmitButton = document.getElementById('form-submit-btn');
 const meetNowButton = document.getElementById('meet-now-btn');
 const scheduleMeetButton = document.getElementById('meet-later-btn');
+const bookApptSchedule = document.getElementById('meet-later-btn');
+const bookApptNow = document.getElementById('meet-now-btn');
 
 async function main() {
   // Your Firebase configuration
@@ -69,7 +71,6 @@ async function main() {
     callbacks: {
       signInSuccessWithAuthResult: function (authResult, redirectUrl) {
         // Handle sign-in.
-        console.log('signInSuccessWithAuthResult');
         kycForm.style.display = 'block';
         return false; // Return false to avoid redirect.
       },
@@ -109,8 +110,8 @@ async function main() {
       authStartButton.textContent = 'LOGOUT';
     } else {
       authStartButton.textContent = 'LOGIN';
-      calendlyWidget.style.display = 'none';
-      kycForm.style.display = 'none';
+      // calendlyWidget.style.display = 'none';
+      // kycForm.style.display = 'none';
     }
   });
 
@@ -156,15 +157,13 @@ async function main() {
 
   // Listen to the form submission
   formSubmitButton.addEventListener('click', async (e) => {
-    console.log('Pressed Submit Button');
-    console.log(db);
     e.preventDefault(); // Prevent the default form redirect
     // Write a new message to the database collection "customer-book"
 
     let username = auth.currentUser.displayName;
     if (!username && username.length == 0) {
-      username = userName;
       console.log('username is null');
+      username = userName;
     }
 
     addDoc(collection(db, 'customer-book'), {
@@ -175,7 +174,12 @@ async function main() {
       petname: petname.value,
       complaint: complaint.value,
       timestamp: Date.now(),
-    });
+    })
+      .then((docRef) => {
+        console.log('Document succesfully Added');
+        bookApptContainer.style.display = 'block';
+      })
+      .catch((err) => console.log(err));
     return false; // Return false to avoid redirect
   });
 

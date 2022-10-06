@@ -20,9 +20,41 @@
   <section id="header-container">
     <h1>Welcome to VetValley</h1>
   </section>
-  <!-- <hr />
-<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_KMuEy2tpLtoFdz" async> </script> </form>
-<hr /> -->
+
+  <section id="disclaimer-container">
+    <h2>
+      In case of a life threatening emergency, please call 112 or your nearest
+      animal hospital
+    </h2>
+  </section>
+
+  <section id="rate-table-container">
+    <!-- <table id="rate-table" style="display: none"> -->
+    <table id="rate-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Consultation</th>
+          <th>Price INR (Incl. Tax)</th>
+          <th>Includes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Online</td>
+          <td>299</td>
+          <td>Upto 30 min video consultation</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>In-Person</td>
+          <td>399</td>
+          <td>Basic Checkup</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <section id="auth-container">
     <button id="auth-button"></button>
@@ -30,8 +62,8 @@
   </section>
 
   <section id="kyc-container">
-    <form id="kyc-form" style="display: none">
-      <!-- <form id="kyc-form"> -->
+    <!-- <form id="kyc-form" style="display: none"> -->
+    <form id="kyc-form">
       <div class="title">Customer Information</div>
       <!-- Name field -->
       <div>
@@ -43,9 +75,6 @@
           id="username"
           placeholder="PetOwners Name"
         />
-        <!-- <i class="fas fa-exclamation-circle failure-icon"></i>
-      <i class="far fa-check-circle success-icon"></i> -->
-
         <div class="error"></div>
       </div>
 
@@ -54,9 +83,6 @@
         <label for="email">Email</label>
         <i class="material-icons" aria-hidden="true"> email </i>
         <input type="email" name="email" id="email" placeholder="abc@xyz.com" />
-        <!-- <i class="fas fa-exclamation-circle failure-icon"></i>
-      <i class="far fa-check-circle success-icon"></i> -->
-
         <div class="error"></div>
       </div>
 
@@ -96,39 +122,11 @@
     </form>
   </section>
 
-  <section id="rate-table-container">
-    <!-- <table id="rate-table" style="display: none"> -->
-    <table id="rate-table">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Consultation</th>
-          <th>Price INR (Incl. Tax)</th>
-          <th>Includes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Online</td>
-          <td>299</td>
-          <td>Upto 30 min video consultation</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>In-Person</td>
-          <td>399</td>
-          <td>Basic Checkup</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
   <section id="book-appointment-container">
-    <button id="meet-now-btn" type="submit">
+    <button id="meet-now-btn" type="submit" style="display: none">
       <i class="material-icons">video_chat</i> <span>Meet Now</span>
     </button>
-    <button id="meet-later-btn" type="submit">
+    <button id="meet-later-btn" type="submit" style="display: none">
       <i class="material-icons">calendar_month</i>
       <span>Schedule Appointment</span>
     </button>
@@ -139,7 +137,7 @@
       id="calendly-widget"
       class="calendly-inline-widget"
       data-url="https://calendly.com/peeyush-sharma-254/30min"
-      style="min-width: 320px; height: 630px"
+      style="min-width: 320px; height: 630px; display: none"
     ></div>
     <script
       type="text/javascript"
