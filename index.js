@@ -71,7 +71,6 @@ async function main() {
         // Handle sign-in.
         console.log('signInSuccessWithAuthResult');
         kycForm.style.display = 'block';
-        // calendlyWidget.style.display = 'block';
         return false; // Return false to avoid redirect.
       },
       uiShown: function () {
@@ -138,18 +137,6 @@ async function main() {
   //   auth
   // );
 
-  // // This function runs when the 'phone-button' is clicked
-  // // Takes the value from the 'phoneNumber' input and sends SMS to that phone number
-  // phoneButton.addEventListener('click', () => {
-  //   submitPhoneNumberAuth();
-  //   console.log('Phone Number Submitted');
-  // });
-
-  // codeButton.addEventListener('click', () => {
-  //   submitNumberAuthCode();
-  //   console.log('OTP Submitted');
-  // });
-
   // function submitPhoneNumberAuth() {
   //   var phoneNumber = document.getElementById('phoneNumber').value;
   //   var appVerifier = window.recaptchaVerifier;
@@ -163,22 +150,6 @@ async function main() {
   //       window.recaptchaVerifier.render().then(function (widgetId) {
   //         grecaptcha.reset(widgetId);
   //       });
-  //       console.log(error);
-  //     });
-  // }
-
-  // // This function runs when the 'confirm-code' button is clicked
-  // // Takes the value from the 'code' input and submits the code to verify the phone number
-  // // Return a user object if the authentication was successful, and auth is complete
-  // function submitNumberAuthCode() {
-  //   var code = document.getElementById('code').value;
-  //   confirmationResult
-  //     .confirm(code)
-  //     .then((result) => {
-  //       const user = result.user;
-  //       console.log(user);
-  //     })
-  //     .catch((error) => {
   //       console.log(error);
   //     });
   // }
@@ -215,8 +186,8 @@ async function main() {
 
   scheduleMeetButton.addEventListener('click', async (e) => {
     // pul zoom create and start meeting link here
+    calendlyWidget.style.display = 'block';
   });
-
 }
 main();
 
