@@ -13,7 +13,7 @@ import { getFirestore, addDoc, collection } from 'firebase/firestore';
 const authStartButton = document.getElementById('auth-button');
 const calendlyWidget = document.getElementById('calendly-widget');
 const kycForm = document.getElementById('kyc-form');
-const userName = document.getElementById('username');
+let userName = document.getElementById('username');
 const email = document.getElementById('email');
 const address = document.getElementById('address');
 const petname = document.getElementById('petname');
@@ -21,8 +21,7 @@ const complaint = document.getElementById('summary');
 const formSubmitButton = document.getElementById('form-submit-btn');
 const meetNowButton = document.getElementById('meet-now-btn');
 const scheduleMeetButton = document.getElementById('meet-later-btn');
-const bookApptSchedule = document.getElementById('meet-later-btn');
-const bookApptNow = document.getElementById('meet-now-btn');
+// const bookApptContainer = document.getElementById('book-appointment-container');
 
 async function main() {
   // Your Firebase configuration
@@ -110,7 +109,7 @@ async function main() {
       authStartButton.textContent = 'LOGOUT';
     } else {
       authStartButton.textContent = 'LOGIN';
-      // calendlyWidget.style.display = 'none';
+      calendlyWidget.style.display = 'none';
       // kycForm.style.display = 'none';
     }
   });
@@ -160,11 +159,13 @@ async function main() {
     e.preventDefault(); // Prevent the default form redirect
     // Write a new message to the database collection "customer-book"
 
-    let username = auth.currentUser.displayName;
-    if (!username && username.length == 0) {
-      console.log('username is null');
-      username = userName;
-    }
+    // let username = auth.currentUser.displayName;
+    // if (!username && username.length == 0) {
+    //   console.log('username is null');
+    //   username = userName;
+    // }
+    scheduleMeetButton.style.display = 'block';
+    meetNowButton.style.display = 'block';
 
     addDoc(collection(db, 'customer-book'), {
       userId: auth.currentUser.uid,
@@ -177,9 +178,9 @@ async function main() {
     })
       .then((docRef) => {
         console.log('Document succesfully Added');
-        bookApptContainer.style.display = 'block';
       })
       .catch((err) => console.log(err));
+
     return false; // Return false to avoid redirect
   });
 
