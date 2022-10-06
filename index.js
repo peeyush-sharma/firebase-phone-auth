@@ -20,7 +20,7 @@ const petname = document.getElementById('petname');
 const complaint = document.getElementById('summary');
 const formSubmitButton = document.getElementById('form-submit-btn');
 const meetNowButton = document.getElementById('meet-now-btn');
-const scheduleMeetButton = document.getElementById('meet-later-bt');
+const scheduleMeetButton = document.getElementById('meet-later-btn');
 
 async function main() {
   // Your Firebase configuration
@@ -180,11 +180,13 @@ async function main() {
   });
 
   meetNowButton.addEventListener('click', async (e) => {
+    console.log('Meet now button clicked');
+
     // pul zoom create and start meeting link here
     // put razorpay offline button here
   });
-
   scheduleMeetButton.addEventListener('click', async (e) => {
+    console.log('Shcdelu button clicked');
     // pul zoom create and start meeting link here
     calendlyWidget.style.display = 'block';
   });
