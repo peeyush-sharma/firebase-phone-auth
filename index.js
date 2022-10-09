@@ -13,7 +13,7 @@ import { getFirestore, addDoc, collection } from 'firebase/firestore';
 const authStartButton = document.getElementById('auth-button');
 const calendlyWidget = document.getElementById('calendly-widget');
 const kycForm = document.getElementById('kyc-form');
-let userName = document.getElementById('username');
+const userName = document.getElementById('username');
 const email = document.getElementById('email');
 const address = document.getElementById('address');
 const petname = document.getElementById('petname');
@@ -21,27 +21,27 @@ const complaint = document.getElementById('summary');
 const formSubmitButton = document.getElementById('form-submit-btn');
 const meetNowButton = document.getElementById('meet-now-btn');
 const scheduleMeetButton = document.getElementById('meet-later-btn');
-// const bookApptContainer = document.getElementById('book-appointment-container');
+
+// Constants
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: 'AIzaSyAHAUSF2UXi2PDuSO8RfJV-6aU9tXNM9ls',
+  authDomain: 'fir-web-codelab-53937.firebaseapp.com',
+  projectId: 'fir-web-codelab-53937',
+  storageBucket: 'fir-web-codelab-53937.appspot.com',
+  messagingSenderId: '935405943851',
+  appId: '1:935405943851:web:34005ae4f6888895a4fe6e',
+};
 
 async function main() {
-  // Your Firebase configuration
-  const firebaseConfig = {
-    apiKey: 'AIzaSyAHAUSF2UXi2PDuSO8RfJV-6aU9tXNM9ls',
-    authDomain: 'fir-web-codelab-53937.firebaseapp.com',
-    projectId: 'fir-web-codelab-53937',
-    storageBucket: 'fir-web-codelab-53937.appspot.com',
-    messagingSenderId: '935405943851',
-    appId: '1:935405943851:web:34005ae4f6888895a4fe6e',
-  };
   const app = firebase.initializeApp(firebaseConfig);
+  // Firebase DB setup, depends on firebase initializeApp call above.
+  const db = getFirestore();
+
   const auth = firebase.auth();
   // To apply the default browser preference instead of explicitly setting it.
   auth.useDeviceLanguage();
-
   auth.settings.appVerificationDisabledForTesting = true; // Testing: // Turn off phone auth app verification.
-
-  // Firebase DB setup
-  const db = getFirestore();
 
   // FirebaseUI config
   const uiConfig = {
@@ -114,62 +114,21 @@ async function main() {
     }
   });
 
-  // // Create a Recaptcha verifier instance globally // Calls submitPhoneNumberAuth() when the captcha is verified
-  // window.recaptchaVerifier = new RecaptchaVerifier(
-  //   'phone-button',
-  //   {
-  //     size: 'invisible',
-  //     callback: (response) => {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       submitPhoneNumberAuth();
-  //     },
-  //     'expired-callback': () => {
-  //       // Response expired. Ask user to solve reCAPTCHA again.
-  //       // ...
-  //       window.recaptchaVerifier = new RecaptchaVerifier(
-  //         'recaptcha-container',
-  //         {},
-  //         auth
-  //       );
-  //       console.log('CAPTCHA expired');
-  //     },
-  //   },
-  //   auth
-  // );
-
-  // function submitPhoneNumberAuth() {
-  //   var phoneNumber = document.getElementById('phoneNumber').value;
-  //   var appVerifier = window.recaptchaVerifier;
-  //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-  //     .then((confirmationResult) => {
-  //       // SMS sent. Prompt user to type the code from the message, then sign the
-  //       // user in with confirmationResult.confirm(code).
-  //       window.confirmationResult = confirmationResult;
-  //     })
-  //     .catch((error) => {
-  //       window.recaptchaVerifier.render().then(function (widgetId) {
-  //         grecaptcha.reset(widgetId);
-  //       });
-  //       console.log(error);
-  //     });
-  // }
-
   // Listen to the form submission
-  formSubmitButton.addEventListener('click', async (e) => {
+  formSubmitButton.addEventListener('click', function (e) {
     e.preventDefault(); // Prevent the default form redirect
-    // Write a new message to the database collection "customer-book"
 
     // let username = auth.currentUser.displayName;
     // if (!username && username.length == 0) {
-    //   console.log('username is null');
-    //   username = userName;
+    //   username = userName.value;
     // }
     scheduleMeetButton.style.display = 'block';
     meetNowButton.style.display = 'block';
 
+    // Write a new message to the database collection "customer-book"
     addDoc(collection(db, 'customer-book'), {
       userId: auth.currentUser.uid,
-      name: username,
+      name: userName.value,
       email: email.value,
       address: address.value,
       petname: petname.value,
@@ -181,7 +140,23 @@ async function main() {
       })
       .catch((err) => console.log(err));
 
+    console.log('User name:', userName.value);
+    console.log('Email:', email.value);
+    createCalendlyWidget(calendlyWidget, userName.value, email.value);
+
     return false; // Return false to avoid redirect
+  });
+
+  window.addEventListener('message', async (e) => {
+    if (isCalendlyEvent(e)) {
+      /* Example to get the name of the event */
+      console.log('Event name:', e.data.event);
+      if (e.data.event === 'calendly.event_scheduled') {
+        console.log('Custom:', e.data.event);
+      }
+      /* Example to get the payload of the event */
+      console.log('Event details:', e.data.payload);
+    }
   });
 
   meetNowButton.addEventListener('click', async (e) => {
@@ -191,11 +166,28 @@ async function main() {
     // put razorpay offline button here
   });
   scheduleMeetButton.addEventListener('click', async (e) => {
-    console.log('Shcdelu button clicked');
+    console.log('Schedule button clicked');
     // pul zoom create and start meeting link here
     calendlyWidget.style.display = 'block';
   });
 }
+
+function createCalendlyWidget(parent, username, email) {
+  Calendly.initInlineWidget({
+    url: 'https://calendly.com/peeyush-sharma-254/30min?hide_gdpr_banner=1',
+    parentElement: parent,
+    prefill: { name: username, email: email },
+  });
+}
+
+function isCalendlyEvent(e) {
+  return (
+    e.origin === 'https://calendly.com' &&
+    e.data.event &&
+    e.data.event.indexOf('calendly.') === 0
+  );
+}
+
 main();
 
 // document.addEventListener('DOMContentLoaded', function () {
